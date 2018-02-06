@@ -10,16 +10,41 @@ import UIKit
 
 class ViewController: UIViewController {
 
+    @IBOutlet weak var leading: NSLayoutConstraint!
+    @IBOutlet weak var trailing: NSLayoutConstraint!
+    
+    @IBOutlet weak var uiView: UIView!
+    
+    var hamburgerMenuIsVisible = false
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    @IBAction func hamburgerButton(_ sender: UIBarButtonItem) {
+        
+        UIView.animate(withDuration: 0.2, delay: 0.1, options: .curveEaseIn, animations: {
+            
+            if !(self.hamburgerMenuIsVisible) {
+                self.leading.constant = 150
+                self.trailing.constant = -150
+                
+                self.hamburgerMenuIsVisible = true
+            } else {
+                self.leading.constant = 0
+                self.trailing.constant = 0
+                
+                self.hamburgerMenuIsVisible = false
+            }
+            self.view.layoutIfNeeded()
+            
+        }) { (animationComplete) in
+            print("The Animation is complete")
+        }
     }
-
+    
+    
 
 }
 
